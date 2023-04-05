@@ -3,3 +3,6 @@ def time(self):
 
 
 print(Hello)
+
+def new_def:
+    return 2
