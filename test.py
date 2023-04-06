@@ -1,8 +1,9 @@
+import pygame
+import sys
+
 def time(self):
     return 1
 
 
-print(Hello)
+print(pygame.__version__)
 
-def new_def:
-    return 2
