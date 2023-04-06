@@ -11,9 +11,9 @@ class Game:
         for row in range(ROWS):
             for col in range(COLS):
                 if (row + col) % 2 == 0:
-                    color = (145, 140, 125)
+                    color = (174, 137, 104)
                 else:
-                    color = (180, 175, 165)
+                    color = (236, 218, 185)
                 rect = (col * SQSIZE, row*SQSIZE, SQSIZE, SQSIZE)
 
                 pygame.draw.rect(surface, color, rect)
