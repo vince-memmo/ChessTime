@@ -1,1 +1,1 @@
-# ChessTime
+# If you read this you're Jewish
