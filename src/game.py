@@ -1,16 +1,15 @@
 import pygame
 
 from const import *
-
+from board import Board
 
 class Game:
 
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_model( (WIDTH, HEIGHT) )
+        self.screen = pygame.display.set_mode( (WIDTH, HEIGHT) )
         pygame.display.set_caption('Chess')
-        self.game = Game()
-
+        self.board = Board()
 
     def show_bg(self, surface):
         for row in range(ROWS):

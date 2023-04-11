@@ -10,9 +10,9 @@ class Square:
         return self.row == other.row and self.col == other.col
 
     def has_piece(self):
-        return self.piece != None
+        return self.piece is not None
 
-    def isempty(self):
+    def is_empty(self):
         return not self.has_piece()
 
     def has_team_piece(self, color):
@@ -21,5 +21,5 @@ class Square:
     def has_enemy_piece(self, color):
         return self.has_piece() and self.piece.color != color
 
-    def isempty_or_enemy(self, color):
+    def is_empty_or_enemy(self, color):
         return self.isempty() or self.has_enemy_piece(color)
