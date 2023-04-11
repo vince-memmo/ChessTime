@@ -2,6 +2,7 @@ import pygame
 
 from const import *
 from board import Board
+from dragger import Dragger
 
 class Game:
 
@@ -10,6 +11,7 @@ class Game:
         self.screen = pygame.display.set_mode( (WIDTH, HEIGHT) )
         pygame.display.set_caption('Chess')
         self.board = Board()
+        self.dragger = Dragger()
 
     def show_bg(self, surface):
         for row in range(ROWS):
