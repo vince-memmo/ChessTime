@@ -12,7 +12,7 @@ class Board:
         self._add_pieces('black')
 
     def calc_moves(self, piece, row, col):
-
+        print(row, col, 'initial')
         def knight_moves():
             possible_moves = [
                 (row + 1, col + 2),
@@ -29,10 +29,12 @@ class Board:
                 possible_move_row, possible_move_col = possible_move
 
                 if Square.in_range(possible_move_row, possible_move_col):
-                    if self.squares[possible_move_row][possible_move_col].is_empty_or_rival(piece.color):
+                    print(possible_move_row, possible_move_col)
+                    # print(self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color))
+                    if self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color):
                         initial = Square(row, col)
                         final = Square(possible_move_row, possible_move_col)
-                        move = Move(initial, final)
+                        move = Square(initial, final) #this is a square
                         piece.add_move(move)
 
         if isinstance(piece, Pawn):

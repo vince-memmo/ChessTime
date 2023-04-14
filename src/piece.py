@@ -17,10 +17,6 @@ class Piece:
         self.texture = os.path.join(
             f'../assets/images/imgs-{size}px/{self.color}_{self.name}.png')
 
-    def set_possible_move_texture(self):
-        self.texture = os.path.join(
-            f'../assets/images/dot/dot.png')
-
 
     def add_move(self, move):
         self.moves.append(move)

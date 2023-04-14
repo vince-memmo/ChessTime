@@ -39,12 +39,15 @@ class Main:
                         piece = board.squares[clicked_row][clicked_col].piece
                         dragger.save_initial(event.pos)
                         dragger.drag_piece(piece)
+                        board.calc_moves(piece, clicked_row, clicked_col)
                         game.show_valid_moves(screen, piece)
                 # mouse motion
                 elif event.type == pygame.MOUSEMOTION:
 
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
+                        board.calc_moves(piece, clicked_row, clicked_col)
+                        game.show_valid_moves(screen, piece)
 
                 # unclick
                 elif event.type == pygame.MOUSEBUTTONUP:

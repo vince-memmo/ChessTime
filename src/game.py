@@ -1,8 +1,10 @@
 import pygame
+import os
 
 from const import *
 from board import Board
 from dragger import Dragger
+from square import Square
 
 class Game:
 
@@ -39,11 +41,13 @@ class Game:
                         surface.blit(img, piece.texture_rect)
 
     def show_valid_moves(self, surface, piece):
-
+        # print(piece.moves)
         for square in piece.moves:
-            piece.set_texture(size=80)
-            img = pygame.image.load(piece.texture)
-            img_center = col * SQSIZE + SQSIZE // 2, row * SQSIZE + SQSIZE // 2
+            dot_img = os.path.join(
+                f'../assets/images/dot/dot.png')
+            img = pygame.image.load(dot_img)
+            img_center = square.row.row * SQSIZE + SQSIZE // 2, square.col.col * SQSIZE + SQSIZE // 2
             piece.texture_rect = img.get_rect(center=img_center)
             surface.blit(img, piece.texture_rect)
+
 
