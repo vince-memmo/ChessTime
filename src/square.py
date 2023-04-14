@@ -23,3 +23,11 @@ class Square:
 
     def is_empty_or_enemy(self, color):
         return self.isempty() or self.has_enemy_piece(color)
+
+    @staticmethod
+    def in_range(*args):
+        for arg in args:
+            if arg < 0 or arg > 7:
+                return False
+
+        return True
