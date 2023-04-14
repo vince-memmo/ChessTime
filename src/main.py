@@ -45,8 +45,6 @@ class Main:
 
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
-                        dragger.update_blit(screen)
-
 
                 # unclick
                 elif event.type == pygame.MOUSEBUTTONUP:

@@ -22,7 +22,7 @@ class Dragger:
         surface.blit(img, self.piece.texture_rect)
 
     def update_mouse(self, pos):
-        self.mouseX, self.mouseY = pos
+        self.mouseX, self.mouseY = pos #(5.43434, 2.23453245)
 
     def save_initial(self, pos):
         self.initial_row = pos[1] // SQSIZE
