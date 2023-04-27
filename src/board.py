@@ -199,7 +199,7 @@ class Board:
         # pawns
         for col in range(COLS):
             self.squares[row_pawn][col] = Square(row_pawn, col, Pawn(color))
-
+        self.squares[5][3] = Square(5, 3, Pawn('black'))
         # knights
         self.squares[row_other][1] = Square(row_other, 1, Knight(color))
         self.squares[row_other][6] = Square(row_other, 6, Knight(color))
@@ -211,6 +211,7 @@ class Board:
         # rooks
         self.squares[row_other][0] = Square(row_other, 0, Rook(color))
         self.squares[row_other][7] = Square(row_other, 7, Rook(color))
+        self.squares[5][5] = Square(5, 5, Rook(color))
 
         # queen
         self.squares[row_other][3] = Square(row_other, 3, Queen(color))
