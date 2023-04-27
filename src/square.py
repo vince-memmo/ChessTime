@@ -1,9 +1,9 @@
-def __init__(self, row, col, piece=None):
-    self.row = row
-    self.col = col
-    self.piece = piece
-class Square:
 
+class Square:
+    def __init__(self, row, col, piece=None):
+        self.row = row
+        self.col = col
+        self.piece = piece
 
 
     def __eq__(self, other):

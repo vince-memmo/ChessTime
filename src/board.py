@@ -12,8 +12,8 @@ class Board:
         self._add_pieces('black')
 
     def calc_moves(self, piece, row, col):
-        print(row, col, 'initial')
         def knight_moves():
+            print(row, col, 'piece grabbed')
             possible_moves = [
                 (row + 1, col + 2),
                 (row - 1, col + 2),
@@ -29,12 +29,11 @@ class Board:
                 possible_move_row, possible_move_col = possible_move
 
                 if Square.in_range(possible_move_row, possible_move_col):
-                    print(possible_move_row, possible_move_col)
                     # print(self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color))
                     if self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color):
                         initial = Square(row, col)
-                        print(row)
                         final = Square(possible_move_row, possible_move_col)
+                        print(possible_move_row, possible_move_col, 'moves possible')
                         move = Move(initial, final)
                         piece.add_move(move)
 
