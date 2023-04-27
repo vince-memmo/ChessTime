@@ -40,14 +40,13 @@ class Game:
                         piece.texture_rect = img.get_rect(center=img_center)
                         surface.blit(img, piece.texture_rect)
 
-    def show_valid_moves(self, surface, piece):
+    def show_moves(self, surface, piece) :
         # print(piece.moves)
-        for square in piece.moves:
-            dot_img = os.path.join(
-                f'../assets/images/dot/dot.png')
-            img = pygame.image.load(dot_img)
-            img_center = square.row.row * SQSIZE + SQSIZE // 2, square.col.col * SQSIZE + SQSIZE // 2
-            piece.texture_rect = img.get_rect(center=img_center)
-            surface.blit(img, piece.texture_rect)
+        if self.dragger.dragging:
+            piece = self.dragger.piece
+            for move in piece.moves:
+                color = '#C86464'
+                rect = (move.final.row * SQSIZE, move.final.col * SQSIZE, SQSIZE)
+                pygame.draw.rect(surface, color, rect)
 
 

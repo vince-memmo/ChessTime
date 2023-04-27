@@ -33,8 +33,9 @@ class Board:
                     # print(self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color))
                     if self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color):
                         initial = Square(row, col)
+                        print(row)
                         final = Square(possible_move_row, possible_move_col)
-                        move = Square(initial, final) #this is a square
+                        move = Move(initial, final)
                         piece.add_move(move)
 
         if isinstance(piece, Pawn):
