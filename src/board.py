@@ -37,8 +37,147 @@ class Board:
                         move = Move(initial, final)
                         piece.add_move(move)
 
+        def move_horizontally():
+            horizontal_moves = []
+            new_col = col + 1
+            while new_col < 8:
+                if not self.squares[row][new_col].has_piece():
+                    horizontal_moves.append((row, new_col))
+                    new_col += 1
+                elif self.squares[row][new_col].has_enemy_piece(piece.color):
+                    horizontal_moves.append((row, new_col))
+                    break
+                else:
+                    break
+
+            new_col = col - 1
+            while new_col > -1:
+                if not self.squares[row][new_col].has_piece():
+                    horizontal_moves.append((row, new_col))
+                    new_col -= 1
+                elif self.squares[row][new_col].has_enemy_piece(piece.color):
+                    horizontal_moves.append((row, new_col))
+                    break
+                else:
+                    break
+
+            return horizontal_moves
+
+        def move_vertically():
+            vertical_moves = []
+            new_row = row + 1
+            while new_row < 8:
+                if self.squares[new_row][col].has_piece():
+                    vertical_moves.append((new_row, col))
+                    new_row += 1
+                elif self.square.has_enemy_piece(piece.color):
+                    vertical_moves.append((new_row, col))
+                    break
+                else:
+                    break
+
+            new_row = row - 1
+            while new_row > -1:
+                if self.squares[row][new_row].has_piece():
+                    vertical_moves.append((new_row, col))
+                    new_row -= 1
+                elif self.square.has_enemy_piece(piece.color):
+                    vertical_moves.append((new_row, col))
+                    break
+                else:
+                    break
+
+            return vertical_moves
+
+        def move_diagonally():
+            diagonal_moves = []
+            new_row = row + 1
+            new_col = col + 1
+            while Square.in_range(new_row, new_col):
+                if self.squares[new_row][new_col].has_piece():
+                    diagonal_moves.append((new_row, new_col))
+                    new_row += 1
+                    new_col += 1
+                elif self.square.has_enemy_piece(piece.color):
+                    diagonal_moves.append((row, new_row))
+                    break
+                else:
+                    break
+
+            new_row = row + 1
+            new_col = col - 1
+            while Square.in_range(new_row, new_col):
+                if self.squares[row][new_row].has_piece():
+                    diagonal_moves.append((row, new_row))
+                    new_row += 1
+                    new_col -= 1
+                elif self.square.has_enemy_piece(piece.color):
+                    diagonal_moves.append((row, new_row))
+                    break
+                else:
+                    break
+
+            new_row = row - 1
+            new_col = col + 1
+            while Square.in_range(new_row, new_col):
+                if self.squares[row][new_row].has_piece():
+                    diagonal_moves.append((row, new_row))
+                    new_row -= 1
+                    new_col += 1
+                elif self.square.has_enemy_piece(piece.color):
+                    diagonal_moves.append((row, new_row))
+                    break
+                else:
+                    break
+
+            new_row = row - 1
+            new_col = col - 1
+            while Square.in_range(new_row, new_col):
+                if self.squares[row][new_row].has_piece():
+                    diagonal_moves.append((row, new_row))
+                    new_row -= 1
+                    new_col -= 1
+                elif self.square.has_enemy_piece(piece.color):
+                    diagonal_moves.append((row, new_row))
+                    break
+                else:
+                    break
+
+        def knight_moves():
+            possible_moves = [
+                (row + 1, col + 2),
+                (row - 1, col + 2),
+                (row + 1, col - 2),
+                (row - 1, col - 2),
+                (row + 2, col + 1),
+                (row - 2, col + 1),
+                (row + 2, col - 1),
+                (row - 2, col - 1)
+            ]
+
+            for possible_move in possible_moves:
+                possible_move_row, possible_move_col = possible_move
+
+                if Square.in_range(possible_move_row, possible_move_col):
+                    # print(self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color))
+                    if self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color):
+                        initial = Square(row, col)
+                        final = Square(possible_move_row, possible_move_col)
+                        move = Move(initial, final)
+                        piece.add_move(move)
+
+        def rook_moves():
+            moves = move_horizontally()
+            for move in moves:
+                initial = Square(row, col)
+                final = Square(move[0], move[1])
+                move = Move(initial, final)
+                piece.add_move(move)
+
         if isinstance(piece, Pawn):
             pass
+        if isinstance(piece, Rook):
+            rook_moves()
         if isinstance(piece, Bishop):
             pass
         if isinstance(piece, Knight):

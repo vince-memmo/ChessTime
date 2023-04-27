@@ -29,8 +29,9 @@ class Game:
     def show_pieces(self, surface):
         for row in range(ROWS):
             for col in range(COLS):
-                # piece ?
-                if self.board.squares[row][col].has_piece():
+
+                # print(row, col != 1, 0)
+                if self.board.squares[row][col].has_piece() and row + col != 1:
                     piece = self.board.squares[row][col].piece
 
                     if piece is not self.dragger.piece:
