@@ -97,11 +97,11 @@ class Board:
             new_row = row + 1
             new_col = col + 1
             while Square.in_range(new_row, new_col):
-                if self.squares[new_row][new_col].has_piece():
+                if not self.squares[new_row][new_col].has_piece():
                     diagonal_moves.append((new_row, new_col))
                     new_row += 1
                     new_col += 1
-                elif self.square.has_enemy_piece(piece.color):
+                elif self.squares[new_row][new_col].has_enemy_piece(piece.color):
                     diagonal_moves.append((row, new_row))
                     break
                 else:
@@ -109,13 +109,14 @@ class Board:
 
             new_row = row + 1
             new_col = col - 1
+            # print(row, col, 'original')
             while Square.in_range(new_row, new_col):
-                if self.squares[row][new_row].has_piece():
-                    diagonal_moves.append((row, new_row))
+                if not self.squares[new_row][new_col].has_piece():
+                    diagonal_moves.append((new_row, new_col))
                     new_row += 1
                     new_col -= 1
-                elif self.square.has_enemy_piece(piece.color):
-                    diagonal_moves.append((row, new_row))
+                elif self.squares[new_row][new_col].has_enemy_piece(piece.color):
+                    diagonal_moves.append((new_row, new_col))
                     break
                 else:
                     break
@@ -123,12 +124,12 @@ class Board:
             new_row = row - 1
             new_col = col + 1
             while Square.in_range(new_row, new_col):
-                if self.squares[row][new_row].has_piece():
-                    diagonal_moves.append((row, new_row))
+                if not self.squares[new_row][new_col].has_piece():
+                    diagonal_moves.append((new_row, new_col))
                     new_row -= 1
                     new_col += 1
-                elif self.square.has_enemy_piece(piece.color):
-                    diagonal_moves.append((row, new_row))
+                elif self.squares[new_row][new_col].has_enemy_piece(piece.color):
+                    diagonal_moves.append((new_row, new_col))
                     break
                 else:
                     break
@@ -136,15 +137,25 @@ class Board:
             new_row = row - 1
             new_col = col - 1
             while Square.in_range(new_row, new_col):
-                if self.squares[row][new_row].has_piece():
-                    diagonal_moves.append((row, new_row))
+                if not self.squares[new_row][new_col].has_piece():
+                    diagonal_moves.append((new_row, new_col))
                     new_row -= 1
                     new_col -= 1
-                elif self.square.has_enemy_piece(piece.color):
-                    diagonal_moves.append((row, new_row))
+                elif self.squares[new_row][new_col].has_enemy_piece(piece.color):
+                    diagonal_moves.append((new_row, new_col))
                     break
                 else:
                     break
+
+            return diagonal_moves
+
+        def bishop_moves():
+            moves = move_diagonally()
+            for move in moves:
+                initial = Square(row, col)
+                final = Square(move[0], move[1])
+                move = Move(initial, final)
+                piece.add_move(move)
 
         def knight_moves():
             possible_moves = [
@@ -173,27 +184,26 @@ class Board:
             moves_horiz = move_horizontally()
             moves_vert = move_vertically()
             moves = moves_horiz + moves_vert
-            # print(moves_horiz, 'moves_horiz')
-            # print(moves_vert, 'moves_vert')
-            # print(moves)
             for move in moves:
                 initial = Square(row, col)
                 final = Square(move[0], move[1])
                 move = Move(initial, final)
                 piece.add_move(move)
 
+        def queen
+
         if isinstance(piece, Pawn):
             pass
         if isinstance(piece, Rook):
             rook_moves()
         if isinstance(piece, Bishop):
-            pass
+            bishop_moves()
         if isinstance(piece, Knight):
             knight_moves()
         if isinstance(piece, King):
             pass
         if isinstance(piece, Queen):
-            pass
+            queen_moves()
 
 
     def _create(self):
@@ -207,7 +217,7 @@ class Board:
         # pawns
         for col in range(COLS):
             self.squares[row_pawn][col] = Square(row_pawn, col, Pawn(color))
-        self.squares[3][3] = Square(5, 3, Pawn('black'))
+        self.squares[2][4] = Square(5, 3, Pawn('black'))
         # knights
         self.squares[row_other][1] = Square(row_other, 1, Knight(color))
         self.squares[row_other][6] = Square(row_other, 6, Knight(color))
@@ -215,11 +225,11 @@ class Board:
         # bishops
         self.squares[row_other][2] = Square(row_other, 2, Bishop(color))
         self.squares[row_other][5] = Square(row_other, 5, Bishop(color))
+        self.squares[3][5] = Square(5, 5, Bishop('white'))
 
         # rooks
         self.squares[row_other][0] = Square(row_other, 0, Rook(color))
         self.squares[row_other][7] = Square(row_other, 7, Rook(color))
-        self.squares[3][5] = Square(5, 5, Rook('black'))
 
         # queen
         self.squares[row_other][3] = Square(row_other, 3, Queen(color))
