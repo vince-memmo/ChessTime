@@ -70,14 +70,15 @@ class Board:
                 if row == 6 and self.squares[row - 2][col].is_empty_or_enemy(piece.color):
                     moves.append((row - 2, col))
 
+#fixxxxxxxxx
             if color == 'black':
-                if self.squares[row + 1][col + 1].has_enemy_piece(piece.color):
+                if  self.squares[row + 1][col + 1].has_enemy_piece(piece.color):
                     moves.append((row + 1, col + 1))
                 if self.squares[row + 1][col - 1].has_enemy_piece(piece.color):
                     moves.append((row + 1, col - 1))
 
-            if color == 'white':
-                if self.squares[row - 1][col - 1].has_enemy_piece(piece.color):
+            if color == 'white' and row > 0 and col > 0:
+                if  self.squares[row - 1][col - 1].has_enemy_piece(piece.color):
                     moves.append((row - 1, col - 1))
                 if self.squares[row - 1][col + 1].has_enemy_piece(piece.color):
                     moves.append((row - 1, col + 1))
