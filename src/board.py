@@ -13,7 +13,6 @@ class Board:
 
     def calc_moves(self, piece, row, col):
         def knight_moves():
-            print(row, col, 'piece grabbed')
             possible_moves = [
                 (row + 1, col + 2),
                 (row - 1, col + 2),
@@ -33,7 +32,6 @@ class Board:
                     if self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color):
                         initial = Square(row, col)
                         final = Square(possible_move_row, possible_move_col)
-                        print(possible_move_row, possible_move_col, 'moves possible')
                         move = Move(initial, final)
                         piece.add_move(move)
 
@@ -67,10 +65,10 @@ class Board:
             vertical_moves = []
             new_row = row + 1
             while new_row < 8:
-                if self.squares[new_row][col].has_piece():
+                if not self.squares[new_row][col].has_piece():
                     vertical_moves.append((new_row, col))
                     new_row += 1
-                elif self.square.has_enemy_piece(piece.color):
+                elif self.squares[new_row][col].has_enemy_piece(piece.color):
                     vertical_moves.append((new_row, col))
                     break
                 else:
@@ -78,13 +76,18 @@ class Board:
 
             new_row = row - 1
             while new_row > -1:
-                if self.squares[row][new_row].has_piece():
+                print(new_row)
+                print(col)
+                print(self.squares[new_row][col].has_piece())
+                if not self.squares[new_row][col].has_piece():
                     vertical_moves.append((new_row, col))
                     new_row -= 1
-                elif self.square.has_enemy_piece(piece.color):
+                elif self.squares[new_row][col].has_enemy_piece(piece.color):
                     vertical_moves.append((new_row, col))
+                    print('first_break')
                     break
                 else:
+                    print('second_break')
                     break
 
             return vertical_moves
@@ -167,7 +170,12 @@ class Board:
                         piece.add_move(move)
 
         def rook_moves():
-            moves = move_horizontally()
+            moves_horiz = move_horizontally()
+            moves_vert = move_vertically()
+            moves = moves_horiz + moves_vert
+            # print(moves_horiz, 'moves_horiz')
+            # print(moves_vert, 'moves_vert')
+            # print(moves)
             for move in moves:
                 initial = Square(row, col)
                 final = Square(move[0], move[1])
@@ -199,7 +207,7 @@ class Board:
         # pawns
         for col in range(COLS):
             self.squares[row_pawn][col] = Square(row_pawn, col, Pawn(color))
-        self.squares[5][3] = Square(5, 3, Pawn('black'))
+        self.squares[3][3] = Square(5, 3, Pawn('black'))
         # knights
         self.squares[row_other][1] = Square(row_other, 1, Knight(color))
         self.squares[row_other][6] = Square(row_other, 6, Knight(color))
@@ -211,7 +219,7 @@ class Board:
         # rooks
         self.squares[row_other][0] = Square(row_other, 0, Rook(color))
         self.squares[row_other][7] = Square(row_other, 7, Rook(color))
-        self.squares[5][5] = Square(5, 5, Rook(color))
+        self.squares[3][5] = Square(5, 5, Rook('black'))
 
         # queen
         self.squares[row_other][3] = Square(row_other, 3, Queen(color))

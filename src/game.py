@@ -47,7 +47,6 @@ class Game:
             for move in piece.moves:
                 color = '#C86464'
                 rect = (move.final.col * SQSIZE, move.final.row * SQSIZE, SQSIZE, SQSIZE)
-                print(move.final.col * SQSIZE, move.final.row * SQSIZE)
                 pygame.draw.rect(surface, color, rect)
 
 
