@@ -58,6 +58,37 @@ class Board:
                         move = Move(initial, final)
                         piece.add_move(move)
 
+        def pawn_moves():
+            moves = []
+            color = self.squares[row][col].piece.color
+            if color == 'black' and self.squares[row + 1][col].is_empty_or_enemy(piece.color):
+                moves.append((row + 1, col))
+                if row == 1 and self.squares[row + 2][col].is_empty_or_enemy(piece.color):
+                    moves.append((row + 2, col))
+            elif color == 'white' and self.squares[row - 1][col].is_empty_or_enemy(piece.color):
+                moves.append((row - 1, col))
+                if row == 6 and self.squares[row - 2][col].is_empty_or_enemy(piece.color):
+                    moves.append((row - 2, col))
+
+            if color == 'black':
+                if self.squares[row + 1][col + 1].has_enemy_piece(piece.color):
+                    moves.append((row + 1, col + 1))
+                if self.squares[row + 1][col - 1].has_enemy_piece(piece.color):
+                    moves.append((row + 1, col - 1))
+
+            if color == 'white':
+                if self.squares[row - 1][col - 1].has_enemy_piece(piece.color):
+                    moves.append((row - 1, col - 1))
+                if self.squares[row - 1][col + 1].has_enemy_piece(piece.color):
+                    moves.append((row - 1, col + 1))
+
+            for move in moves:
+                initial = Square(row, col)
+                final = Square(move[0], move[1])
+                move = Move(initial, final)
+                piece.add_move(move)
+
+
         def move_horizontally():
             horizontal_moves = []
             new_col = col + 1
@@ -225,7 +256,7 @@ class Board:
                 piece.add_move(move)
 
         if isinstance(piece, Pawn):
-            pass
+            pawn_moves()
         if isinstance(piece, Rook):
             rook_moves()
         if isinstance(piece, Bishop):
@@ -248,7 +279,7 @@ class Board:
         # pawns
         for col in range(COLS):
             self.squares[row_pawn][col] = Square(row_pawn, col, Pawn(color))
-        self.squares[2][4] = Square(5, 3, King('black'))
+        self.squares[2][2] = Square(2, 0, Pawn('black'))
 
         # knights
         self.squares[row_other][1] = Square(row_other, 1, Knight(color))

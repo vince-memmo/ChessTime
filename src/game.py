@@ -31,7 +31,7 @@ class Game:
             for col in range(COLS):
 
                 # print(row, col != 1, 0)
-                if self.board.squares[row][col].has_piece() and row + col != 1:
+                if self.board.squares[row][col].has_piece():
                     piece = self.board.squares[row][col].piece
 
                     if piece is not self.dragger.piece:
