@@ -35,6 +35,29 @@ class Board:
                         move = Move(initial, final)
                         piece.add_move(move)
 
+        def king_moves():
+            possible_moves = [
+                (row + 1, col + 1),
+                (row + 1, col - 1),
+                (row - 1, col + 1),
+                (row - 1, col - 1),
+                (row, col + 1),
+                (row, col - 1),
+                (row + 1, col),
+                (row - 1, col)
+            ]
+
+            for possible_move in possible_moves:
+                possible_move_row, possible_move_col = possible_move
+                # print(isinstance(self.squares[possible_move_row][possible_move_col].piece, King))
+                if Square.in_range(possible_move_row, possible_move_col):
+                    # print(self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color))
+                    if self.squares[possible_move_row][possible_move_col].is_empty_or_enemy(piece.color):
+                        initial = Square(row, col)
+                        final = Square(possible_move_row, possible_move_col)
+                        move = Move(initial, final)
+                        piece.add_move(move)
+
         def move_horizontally():
             horizontal_moves = []
             new_col = col + 1
@@ -190,7 +213,16 @@ class Board:
                 move = Move(initial, final)
                 piece.add_move(move)
 
-        def queen
+        def queen_moves():
+            moves_horiz = move_horizontally()
+            moves_vert = move_vertically()
+            moves_diag = move_diagonally()
+            moves = moves_horiz + moves_diag + moves_horiz
+            for move in moves:
+                initial = Square(row, col)
+                final = Square(move[0], move[1])
+                move = Move(initial, final)
+                piece.add_move(move)
 
         if isinstance(piece, Pawn):
             pass
@@ -201,10 +233,9 @@ class Board:
         if isinstance(piece, Knight):
             knight_moves()
         if isinstance(piece, King):
-            pass
+            king_moves()
         if isinstance(piece, Queen):
             queen_moves()
-
 
     def _create(self):
         for row in range(ROWS):
@@ -217,7 +248,8 @@ class Board:
         # pawns
         for col in range(COLS):
             self.squares[row_pawn][col] = Square(row_pawn, col, Pawn(color))
-        self.squares[2][4] = Square(5, 3, Pawn('black'))
+        self.squares[2][4] = Square(5, 3, King('black'))
+
         # knights
         self.squares[row_other][1] = Square(row_other, 1, Knight(color))
         self.squares[row_other][6] = Square(row_other, 6, Knight(color))
@@ -225,7 +257,7 @@ class Board:
         # bishops
         self.squares[row_other][2] = Square(row_other, 2, Bishop(color))
         self.squares[row_other][5] = Square(row_other, 5, Bishop(color))
-        self.squares[3][5] = Square(5, 5, Bishop('white'))
+        self.squares[3][5] = Square(5, 5, King('white'))
 
         # rooks
         self.squares[row_other][0] = Square(row_other, 0, Rook(color))
