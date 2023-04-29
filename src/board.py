@@ -61,27 +61,31 @@ class Board:
         def pawn_moves():
             moves = []
             color = self.squares[row][col].piece.color
-            if color == 'black' and self.squares[row + 1][col].is_empty_or_enemy(piece.color):
+            if color == 'black' and self.squares[row + 1][col].is_empty():
                 moves.append((row + 1, col))
-                if row == 1 and self.squares[row + 2][col].is_empty_or_enemy(piece.color):
+                if row == 1 and self.squares[row + 2][col].is_empty():
                     moves.append((row + 2, col))
-            elif color == 'white' and self.squares[row - 1][col].is_empty_or_enemy(piece.color):
+            elif color == 'white' and self.squares[row - 1][col].is_empty():
                 moves.append((row - 1, col))
-                if row == 6 and self.squares[row - 2][col].is_empty_or_enemy(piece.color):
+                if row == 6 and self.squares[row - 2][col].is_empty():
                     moves.append((row - 2, col))
 
-#fixxxxxxxxx
+# fixxxxxxxxx
             if color == 'black':
-                if  self.squares[row + 1][col + 1].has_enemy_piece(piece.color):
-                    moves.append((row + 1, col + 1))
-                if self.squares[row + 1][col - 1].has_enemy_piece(piece.color):
-                    moves.append((row + 1, col - 1))
+                if row + 1 < 8 and col + 1 < 8:
+                    if self.squares[row + 1][col + 1].has_enemy_piece(piece.color):
+                        moves.append((row + 1, col + 1))
+                if row + 1 < 8 and col - 1 > -1:
+                    if self.squares[row + 1][col - 1].has_enemy_piece(piece.color):
+                        moves.append((row + 1, col - 1))
 
-            if color == 'white' and row > 0 and col > 0:
-                if  self.squares[row - 1][col - 1].has_enemy_piece(piece.color):
-                    moves.append((row - 1, col - 1))
-                if self.squares[row - 1][col + 1].has_enemy_piece(piece.color):
-                    moves.append((row - 1, col + 1))
+            if color == 'white':
+                if row - 1 > -1 and col - 1 > -1:
+                    if self.squares[row - 1][col - 1].has_enemy_piece(piece.color):
+                        moves.append((row - 1, col - 1))
+                if row - 1 > -1 and col + 1 < 8:
+                    if self.squares[row - 1][col + 1].has_enemy_piece(piece.color):
+                        moves.append((row - 1, col + 1))
 
             for move in moves:
                 initial = Square(row, col)
@@ -275,12 +279,13 @@ class Board:
                 self.squares[row][col] = Square(row, col)
 
     def _add_pieces(self, color):
+        self.squares[5][4] = Square(5, 4, King('black'))
+
         row_pawn, row_other = (6, 7) if color == 'white' else (1, 0)
 
         # pawns
         for col in range(COLS):
             self.squares[row_pawn][col] = Square(row_pawn, col, Pawn(color))
-        self.squares[2][2] = Square(2, 0, Pawn('black'))
 
         # knights
         self.squares[row_other][1] = Square(row_other, 1, Knight(color))
@@ -289,7 +294,7 @@ class Board:
         # bishops
         self.squares[row_other][2] = Square(row_other, 2, Bishop(color))
         self.squares[row_other][5] = Square(row_other, 5, Bishop(color))
-        self.squares[3][5] = Square(5, 5, King('white'))
+
 
         # rooks
         self.squares[row_other][0] = Square(row_other, 0, Rook(color))
