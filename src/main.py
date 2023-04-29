@@ -9,12 +9,14 @@ class Main:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        # self.move_screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption('Chess')
         self.game = Game()
 
     def mainloop(self):
 
         screen = self.screen
+        # move_screen = self.move_screen
         game = self.game
         board = self.game.board
         dragger = self.game.dragger

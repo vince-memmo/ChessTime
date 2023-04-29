@@ -70,7 +70,6 @@ class Board:
                 if row == 6 and self.squares[row - 2][col].is_empty():
                     moves.append((row - 2, col))
 
-# fixxxxxxxxx
             if color == 'black':
                 if row + 1 < 8 and col + 1 < 8:
                     if self.squares[row + 1][col + 1].has_enemy_piece(piece.color):

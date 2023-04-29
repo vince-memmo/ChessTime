@@ -45,8 +45,17 @@ class Game:
         if self.dragger.dragging:
             piece = self.dragger.piece
             for move in piece.moves:
-                color = '#C86464'
+                color = '#808080'
+                x = move.final.col * SQSIZE + (SQSIZE // 2)
+                y = move.final.row * SQSIZE + (SQSIZE // 2)
                 rect = (move.final.col * SQSIZE, move.final.row * SQSIZE, SQSIZE, SQSIZE)
-                pygame.draw.rect(surface, color, rect)
+                pygame.draw.circle(surface, color, (x, y), 20, 5)
 
-
+    # def show_moves1(self, surface):
+    #     self.piece.set_texture()
+    #     texture = self.piece.texture
+    #
+    #     img = pygame.image.load(texture)
+    #     img_center = (self.mouseX, self.mouseY)
+    #     self.piece.texture_rect = img.get_rect(center=img_center)
+    #     surface.blit(img, self.piece.texture_rect)
