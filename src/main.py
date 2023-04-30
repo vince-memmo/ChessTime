@@ -9,14 +9,14 @@ class Main:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        # self.move_screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.move_screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption('Chess')
         self.game = Game()
 
     def mainloop(self):
 
         screen = self.screen
-        # move_screen = self.move_screen
+        move_screen = self.move_screen
         game = self.game
         board = self.game.board
         dragger = self.game.dragger
@@ -25,7 +25,7 @@ class Main:
 
         while True:
             game.show_bg(screen)
-            game.show_moves(screen)
+            game.show_moves(move_screen)
             game.show_pieces(screen)
 
             if dragger.dragging:
@@ -44,7 +44,7 @@ class Main:
                         dragger.drag_piece(piece)
                         board.calc_moves(piece, clicked_row, clicked_col)
                         game.show_bg(screen)
-                        game.show_moves(screen)
+                        game.show_moves(move_screen)
                         game.show_pieces(screen)
                 # mouse motion
                 elif event.type == pygame.MOUSEMOTION:
@@ -53,7 +53,7 @@ class Main:
                         dragger.update_mouse(event.pos)
                         board.calc_moves(piece, clicked_row, clicked_col)
                         game.show_bg(screen)
-                        game.show_moves(screen)
+                        game.show_moves(move_screen)
                         game.show_pieces(screen)
                         dragger.update_blit(screen)
 
