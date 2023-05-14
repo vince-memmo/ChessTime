@@ -11,14 +11,17 @@ class Board:
         self._add_pieces('white')
         self._add_pieces('black')
 
-    def moves(self, piece, move):
+    def move(self, piece, move):
         initial = move.initial
         final = move.final
 
-        self.squares[initial.row, initial.col].piece = None
-        self.squares[final.row, final.col].piece = piece
+        self.squares[initial.row][initial.col].piece = None
+        self.squares[final.row][final.col].piece = piece
 
         piece.moved = True
+
+        piece.clear_moves()
+
         self.last_move = move
 
     def calc_moves(self, piece, row, col):
@@ -144,9 +147,7 @@ class Board:
 
             new_row = row - 1
             while new_row > -1:
-                print(new_row)
-                print(col)
-                print(self.squares[new_row][col].has_piece())
+
                 if not self.squares[new_row][col].has_piece():
                     vertical_moves.append((new_row, col))
                     new_row -= 1
@@ -262,7 +263,7 @@ class Board:
             moves_horiz = move_horizontally()
             moves_vert = move_vertically()
             moves_diag = move_diagonally()
-            moves = moves_horiz + moves_diag + moves_horiz
+            moves = moves_horiz + moves_diag + moves_vert
             for move in moves:
                 initial = Square(row, col)
                 final = Square(move[0], move[1])
