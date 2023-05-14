@@ -6,10 +6,20 @@ from move import Move
 class Board:
     def __init__(self):
         self.squares = [[0, 0, 0, 0, 0, 0, 0, 0] for col in range(COLS)]
-
+        self.last_move = None
         self._create()
         self._add_pieces('white')
         self._add_pieces('black')
+
+    def moves(self, piece, move):
+        initial = move.initial
+        final = move.final
+
+        self.squares[initial.row, initial.col].piece = None
+        self.squares[final.row, final.col].piece = piece
+
+        piece.moved = True
+        self.last_move = move
 
     def calc_moves(self, piece, row, col):
         def knight_moves():

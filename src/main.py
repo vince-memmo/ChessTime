@@ -60,6 +60,16 @@ class Main:
                 # unclick
                 elif event.type == pygame.MOUSEBUTTONUP:
                     dragger.undrag_piece()
+                    dragger.update_mouse(event.pos)
+                    released_row = dragger.mouseY // SQSIZE
+                    released_col = dragger.mouseX // SQSIZE
+                    valid_moves = []
+                    for move in piece.moves:
+                        valid_moves.append((move.final.row, move.final.col))
+                    if (released_row, released_col) in valid_moves:
+                        print('yes please')
+                    else:
+                        print('no thank you')
 
                 elif event.type == pygame.QUIT:
                     pygame.quit()
