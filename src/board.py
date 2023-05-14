@@ -160,7 +160,7 @@ class Board:
                     new_row += 1
                     new_col += 1
                 elif self.squares[new_row][new_col].has_enemy_piece(piece.color):
-                    diagonal_moves.append((row, new_row))
+                    diagonal_moves.append((new_row, new_col))
                     break
                 else:
                     break
@@ -278,7 +278,7 @@ class Board:
                 self.squares[row][col] = Square(row, col)
 
     def _add_pieces(self, color):
-        self.squares[5][4] = Square(5, 4, King('black'))
+        # self.squares[5][4] = Square(5, 4, Bishop('black'))
 
         row_pawn, row_other = (6, 7) if color == 'white' else (1, 0)
 
