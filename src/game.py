@@ -55,3 +55,32 @@ class Game:
     def next_turn(self):
         self.next_player = 'black' if self.next_player == 'white' else 'white'
 
+    def _add_pieces(self, color):
+        # self.squares[5][4] = Square(5, 4, Bishop('black'))
+
+        row_pawn, row_other = (6, 7) if color == 'white' else (1, 0)
+
+        # pawns
+        for col in range(COLS):
+            self.squares[row_pawn][col] = Square(row_pawn, col, Pawn(color))
+
+        # knights
+        self.squares[row_other][1] = Square(row_other, 1, Knight(color))
+        self.squares[row_other][6] = Square(row_other, 6, Knight(color))
+
+        # bishops
+        self.squares[row_other][2] = Square(row_other, 2, Bishop(color))
+        self.squares[row_other][5] = Square(row_other, 5, Bishop(color))
+
+
+        # rooks
+        self.squares[row_other][0] = Square(row_other, 0, Rook(color))
+        self.squares[row_other][7] = Square(row_other, 7, Rook(color))
+
+        # queen
+        self.squares[row_other][3] = Square(row_other, 3, Queen(color))
+
+        # king
+        self.squares[row_other][4] = Square(row_other, 4, King(color))
+
+
