@@ -63,20 +63,20 @@ class Main:
                 elif event.type == pygame.MOUSEBUTTONUP:
                     if dragger.piece.color != game.next_player:
                         dragger.undrag_piece()
-                    # elif dragger.dragging:
-                    #     dragger.undrag_piece()
-                    #     dragger.update_mouse(event.pos)
-                    #     released_row = dragger.mouseY // SQSIZE
-                    #     released_col = dragger.mouseX // SQSIZE
-                    #     valid_moves = []
-                    #     for move in piece.moves:
-                    #         valid_moves.append((move.final.row, move.final.col))
-                    #     if (released_row, released_col) in valid_moves:
-                    #         initial = Square(clicked_row, clicked_col)
-                    #         final = Square(released_row, released_col, piece)
-                    #         move = Move(initial, final)
-                    #         board.move(piece, move)
-                    #         game.next_turn()
+                    elif dragger.dragging:
+                        dragger.undrag_piece()
+                        dragger.update_mouse(event.pos)
+                        released_row = dragger.mouseY // SQSIZE
+                        released_col = dragger.mouseX // SQSIZE
+                        valid_moves = []
+                        for move in piece.moves:
+                            valid_moves.append((move.final.row, move.final.col))
+                        if (released_row, released_col) in valid_moves:
+                            initial = Square(clicked_row, clicked_col)
+                            final = Square(released_row, released_col, piece)
+                            move = Move(initial, final)
+                            board.move(piece, move)
+                            game.next_turn()
 
                 elif event.type == pygame.QUIT:
                     pygame.quit()
