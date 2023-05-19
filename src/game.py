@@ -43,6 +43,22 @@ class Game:
                         piece.texture_rect = img.get_rect(center=img_center)
                         surface.blit(img, piece.texture_rect)
 
+                font = pygame.font.SysFont('monospace', 18, bold=True)
+
+                if col == 0:
+                    color = "00ff00"
+                    label = font.render(str(ROWS - row), 1, (255, 255, 255))
+                    pos = (5, 5 + row * SQSIZE)
+                    surface.blit(label, pos)
+
+                    # col coordinates
+                alpha = {0: "A", 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H'}
+                if row == 7:
+                    color = "00ff00"
+                    label = font.render(alpha[col], 1, (255, 255, 255))
+                    pos = (col * SQSIZE + SQSIZE - 20, HEIGHT - 20)
+                    surface.blit(label, pos)
+
     def show_moves(self, surface):
         if self.dragger.dragging:
             piece = self.dragger.piece
