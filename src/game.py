@@ -15,6 +15,7 @@ class Game:
         self.board = Board()
         self.dragger = Dragger()
         self.next_player = 'white'
+        self.hover_square = None
 
     def show_bg(self, surface):
         for row in range(ROWS):
@@ -46,11 +47,28 @@ class Game:
         if self.dragger.dragging:
             piece = self.dragger.piece
             for move in piece.moves:
-                color = '#808080'
-                x = move.final.col * SQSIZE + (SQSIZE // 2)
-                y = move.final.row * SQSIZE + (SQSIZE // 2)
+                color = '#00ff00'
                 rect = (move.final.col * SQSIZE, move.final.row * SQSIZE, SQSIZE, SQSIZE)
-                pygame.draw.circle(surface, color, (x, y), 20, 5)
+                pygame.draw.rect(surface, color, rect)
+
+    def show_last_move(self, surface):
+        if self.board.last_move:
+            initial = self.board.last_move.initial
+            final = self.board.last_move.final
+
+            for pos in [initial, final]:
+                color = '#F4EA56'
+                rect = (pos.col * SQSIZE, pos.row * SQSIZE, SQSIZE, SQSIZE)
+                pygame.draw.rect(surface, color, rect)
+
+    def show_hover(self, surface):
+        if self.hover_square:
+            color = '#ADD8E6'
+            rect = (self.hover_square[1] * SQSIZE, self.hover_square[0] * SQSIZE, SQSIZE, SQSIZE)
+            pygame.draw.rect(surface, color, rect)
+
+    def set_hover(self, row, col):
+        self.hover_square = (row, col)
 
     def next_turn(self):
         self.next_player = 'black' if self.next_player == 'white' else 'white'
