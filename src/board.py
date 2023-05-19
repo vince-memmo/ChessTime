@@ -18,6 +18,11 @@ class Board:
         self.squares[initial.row][initial.col].piece = None
         self.squares[final.row][final.col].piece = piece
 
+        if isinstance(piece, Pawn):
+            if final.row == 0 or final.row == 7:
+                self.squares[final.row][final.col].piece = Queen(piece.color)
+
+
         piece.moved = True
 
         piece.clear_moves()

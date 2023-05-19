@@ -32,7 +32,6 @@ class Game:
         for row in range(ROWS):
             for col in range(COLS):
 
-                # print(row, col != 1, 0)
                 if self.board.squares[row][col].has_piece():
                     piece = self.board.squares[row][col].piece
 

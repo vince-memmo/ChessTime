@@ -70,7 +70,7 @@ class Main:
 
                 # unclick
                 elif event.type == pygame.MOUSEBUTTONUP:
-                    if dragger.piece.color != game.next_player:
+                    if dragger.dragging and dragger.piece.color != game.next_player:
                         dragger.undrag_piece()
                     elif dragger.dragging:
                         dragger.undrag_piece()
