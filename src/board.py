@@ -24,6 +24,7 @@ class Board:
 
 
         piece.moved = True
+        if peice True = board.moved
 
         piece.clear_moves()
 
